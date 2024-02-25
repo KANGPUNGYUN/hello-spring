@@ -3,13 +3,30 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // 기존코드
+    // private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 변경코드
+    private final MemberRepository memberRepository;
+
+    // 의존성 주입
+    // memberRepository를 new를 통해 인스턴스를 직접 생성하는 것이 아니라 외부에서 넣어 줄수 있도록 함
+    // 그 이유는 memberRepository를 new를 통해 생성하면 기존의 객체가 아닌 새로운 인스턴스가 생성되기 때문에 다른 곳에서 new로 생성한 인스턴스와 다른 인스턴스가 된다.
+    // MemberService의 입장에서 직접 new를 사용하지 않고 MemberRepository를 외부에서 주입한다.
+
+    @Autowired
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입
@@ -36,6 +53,6 @@ public class MemberService {
     }
 
     public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findById(memberId)
+        return memberRepository.findById(memberId);
     }
 }
