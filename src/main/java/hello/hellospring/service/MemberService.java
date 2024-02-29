@@ -46,7 +46,8 @@ public class MemberService {
 //            System.out.println("join " + timeMs + "ms");
 //        }
 
-        validateExistMemberName(member); //중복 회원 검증 memberRepository.save(member);
+        validateExistMemberName(member); //중복 회원 검증
+        memberRepository.save(member);
         return member.getId();
     }
 
