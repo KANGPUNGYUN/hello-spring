@@ -80,7 +80,4 @@ class MemberServiceIntegrationTest {
         //then
     }
 
-    @Test
-    void findOne() {
-    }
 }
